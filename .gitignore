@@ -1,5 +1,8 @@
 ## Ignore File ##
 venv
+
 out
+
 .idea
+
 .DS_Store
