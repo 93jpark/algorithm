@@ -9,7 +9,6 @@ public class Ex_1065 {
         Integer n = sc.nextInt();
 
         System.out.println(n.toString().length());
-        
 
     }
 }
