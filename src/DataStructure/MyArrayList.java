@@ -1,2 +1,4 @@
-package DataStructure;public class MyArrayList {
+package DataStructure;
+
+public class MyArrayList {
 }
