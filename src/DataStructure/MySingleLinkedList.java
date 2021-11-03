@@ -97,21 +97,6 @@ public class MySingleLinkedList<T> {
         cursor.next = cursor.next.next;
         return true;
 
-
-
-
-//        Node<T> cursor = this.head;
-//        while(cursor.data != data) {
-//            if(cursor.next == null) {
-//                System.out.println("node having " + data + " does not exists");
-//                return false;
-//            }
-//            cursor.next = cursor;
-//        }
-//
-//        Node<T> target = cursor.next;
-//        cursor.next = target.next;
-//        return true;
     }
 
     // 리스트 전체 출력
@@ -132,9 +117,5 @@ public class MySingleLinkedList<T> {
             System.out.println("\n");
         }
     }
-
-
-
-
 
 }

@@ -18,7 +18,7 @@ public class test {
 //        msl.addNodeAfter("afterNodeTest", "World");
 //        msl.printAll();
 
-        msl.delNode("Hello1");
+        msl.delNode("Hello");
         msl.printAll();
 
 
