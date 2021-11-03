@@ -3,6 +3,7 @@ import java.util.*;
 
 public class MyDoubleLinkedList<T> {
     public Node<T> head = null;
+    public Node<T> tail = null;
 
     public class Node<T> {
         public T data;
@@ -33,13 +34,12 @@ public class MyDoubleLinkedList<T> {
     public void addNode(T data){
         if(this.head == null) {
             this.head = new Node<T>(data);
+            this.tail = this.head;
         } else {
-            Node cursor = this.head;
-            while(cursor.next!=null){
-                cursor = cursor.next;
-            }
+            Node cursor = this.tail;
             cursor.next = new Node<T>(data);
             cursor.next.prev = cursor;
+            this.tail = cursor.next;
         }
     }
 
@@ -48,10 +48,18 @@ public class MyDoubleLinkedList<T> {
         if(this.head == null) {
             System.out.println("List is empty");
         } else {
-            Node<T> newNode = new Node<T>(newData);
             Node<T> cursor = this.search(target);
-            cursor.next = newNode;
-            newNode.prev = cursor;
+            if(cursor.next == null) {
+                this.addNode(newData);
+            } else {
+                Node<T> newNode = new Node<T>(newData);
+                newNode.prev = cursor;
+                newNode.next = cursor.next;
+                cursor.next.prev = newNode;
+                cursor.next = newNode;
+            }
+
+
         }
     }
 

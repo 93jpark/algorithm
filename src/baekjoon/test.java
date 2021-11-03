@@ -17,10 +17,13 @@ public class test {
         msl.printAll();
         msl.addNode("addNodeTest", "World");
         msl.printAll();
-        msl.addNode("addNodeTest", "World");
+        msl.addNode("!!", "Bye");
         msl.printAll();
 
         msl.delNode("addNodeTest");
+        msl.printAll();
+
+        msl.delNode("Hello");
         msl.printAll();
 
 
