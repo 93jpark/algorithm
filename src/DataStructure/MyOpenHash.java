@@ -2,14 +2,15 @@ package DataStructure;
 import java.util.*;
 
 public class MyOpenHash {
+    // hash table is consists of multiple Slot.
     Slot[] hashTable;
 
     public MyOpenHash(Integer size) {
         this.hashTable = new Slot[size];
     }
 
+    // Slot contains Linked List named as datalist
     public class Slot {
-        String data;
         LinkedList<Pair> datalist;
 
         public Slot(String key, String value) {
@@ -17,6 +18,7 @@ public class MyOpenHash {
             this.datalist.add(new Pair(key, value));
         }
 
+        // add key-value pair on datalist Linked List
         public boolean add(String key, String value) {
             if(this.datalist != null) {
                 this.datalist.add(new Pair(key, value));
@@ -26,6 +28,7 @@ public class MyOpenHash {
             }
         }
 
+        // iterate datalist and find key-value fair which having same give key
         public String search(String key) {
             if(this.datalist != null) {
                 int len = this.datalist.size();
@@ -38,6 +41,7 @@ public class MyOpenHash {
             return null;
         }
 
+        // Pair class contain key-value fair for LinkedList of Slot
         class Pair {
             String key, value;
             public Pair(String key, String value) {
