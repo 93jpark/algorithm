@@ -1,5 +1,10 @@
 package DataStructure;
 
+/*
+    해당 Hash는 Hash Collision을 나타내기 위해 만들어진 예제 코드이다.
+    개방/폐쇄형 해시 예제는 각각 MyOpenHash, MyClosedHash에 구현했다.
+ */
+
 public class MyHash {
     Slot[] hashTable;
 
