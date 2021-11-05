@@ -9,47 +9,14 @@ public class MyOpenHash {
         this.hashTable = new Slot[size];
     }
 
-    // Slot contains Linked List named as datalist
     public class Slot {
-        LinkedList<Pair> datalist;
-
+        String key, value;
+        Slot next;
         public Slot(String key, String value) {
-            this.datalist = new LinkedList<Pair>();
-            this.datalist.add(new Pair(key, value));
+            this.key = key;
+            this.value = value;
+            this.next = null;
         }
-
-        // add key-value pair on datalist Linked List
-        public boolean add(String key, String value) {
-            if(this.datalist != null) {
-                this.datalist.add(new Pair(key, value));
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        // iterate datalist and find key-value fair which having same give key
-        public String search(String key) {
-            if(this.datalist != null) {
-                int len = this.datalist.size();
-                for(int i = 0; i < len; i++) {
-                    if(this.datalist.get(i).key == key) {
-                        return this.datalist.get(i).value;
-                    }
-                }
-            }
-            return null;
-        }
-
-        // Pair class contain key-value fair for LinkedList of Slot
-        class Pair {
-            String key, value;
-            public Pair(String key, String value) {
-                this.key = key;
-                this.value = value;
-            }
-        }
-
     }
 
     public Integer hashFunc(String key) {
@@ -59,18 +26,82 @@ public class MyOpenHash {
     public boolean save(String key, String value) {
         Integer idx = hashFunc(key);
         if(this.hashTable[idx] != null) {
-            this.hashTable[idx].add(key, value);
+            Slot slot = this.hashTable[idx];
+            Slot prev = this.hashTable[idx];
+            while(slot != null) {
+                if (slot.key == key) {
+                    slot.value = value;
+                    return true;
+                } else {
+                    prev = slot;
+                    slot = slot.next;
+                }
+            }
+            prev.next = new Slot(key, value);
+            return true;
         } else {
             this.hashTable[idx] = new Slot(key, value);
         }
         return true;
     }
 
-    public Object get(String key) {
+    public String get(String key) {
         Integer idx = hashFunc(key);
-        if(this.hashTable[idx] != null) {
-            return this.hashTable[idx].search(key);
+
+        if(this.hashTable[idx]!=null) {
+            Slot cursor = this.hashTable[idx];
+            while(cursor!=null){
+                if(cursor.key == key) {
+                    return cursor.value;
+                } else {
+                    cursor = cursor.next;
+                }
+            }
+            return null;
         } else {
+            return null;
+        }
+
+    }
+
+    public boolean saveData(String key, String value) {
+        Integer address = this.hashFunc(key);
+        if (this.hashTable[address] != null) {
+            Slot findSlot = this.hashTable[address];
+            Slot prevSlot = this.hashTable[address];
+            while (findSlot != null) {
+                if (findSlot.key == key) {
+                    findSlot.value = value;
+                    return true;
+                } else {
+                    prevSlot = findSlot;
+                    findSlot = findSlot.next;
+                }
+            }
+            prevSlot.next = new Slot(key, value);
+        } else {
+            this.hashTable[address] = new Slot(key, value);
+        }
+        return true;
+    }
+
+    public String getData(String key) {
+        Integer address = this.hashFunc(key);
+        if (this.hashTable[address] != null) {
+            Slot findSlot = this.hashTable[address];
+            while (findSlot != null) {
+                System.out.println("@!");
+                if (findSlot.key == key) {
+                    System.out.println("1");
+                    return findSlot.value;
+                } else {
+                    findSlot = findSlot.next;
+                }
+            }
+            System.out.println("2");
+            return null;
+        } else {
+            System.out.println("3");
             return null;
         }
     }
