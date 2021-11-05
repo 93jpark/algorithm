@@ -23,7 +23,7 @@ public class MyOpenHash {
         return (int)key.charAt(0) % this.hashTable.length;
     }
 
-    public boolean save(String key, String value) {
+    public boolean set(String key, String value) {
         Integer idx = hashFunc(key);
         if(this.hashTable[idx] != null) {
             Slot slot = this.hashTable[idx];
