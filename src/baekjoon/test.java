@@ -1,32 +1,20 @@
 package baekjoon;
 
 import java.util.*;
-import DataStructure.MyQueue;
-import DataStructure.MyStack;
-import DataStructure.MySingleLinkedList;
-import DataStructure.MyDoubleLinkedList;
-
+import DataStructure.*;
 
 public class test {
     public static void main(String[] args) {
-        MyDoubleLinkedList<String> msl = new MyDoubleLinkedList<String>();
-        msl.addNode("Hello");
-        msl.addNode("World");
-        msl.addNode("Bye");
+        MyClosedHash myHash = new MyClosedHash(20);
+        myHash.set("DaveLee", "01022223333");
+        myHash.set("fun-coding", "01033334444");
+        myHash.set("David", "01044445555");
+        myHash.set("Dave", "01055556666");
 
-        msl.printAll();
-        msl.addNode("addNodeTest", "World");
-        msl.printAll();
-        msl.addNode("!!", "Bye");
-        msl.printAll();
-
-        msl.delNode("addNodeTest");
-        msl.printAll();
-
-        msl.delNode("Hello");
-        msl.printAll();
+        System.out.println(myHash.get("Dave"));
+        System.out.println(myHash.get("David"));
+        System.out.println(myHash.get("DaveLee"));
 
 
     }
-
 }
