@@ -1,4 +1,4 @@
 package DataStructure;
 
-public class MyHeap {
+public class MyMinHeap {
 }
