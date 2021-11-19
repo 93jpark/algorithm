@@ -1,7 +1,12 @@
 package DataStructure;
 
-public class MyTree {
+public class MyBinarySearchTree {
 
+    MyNode head;
+
+    public MyBinarySearchTree() {
+        this.head = null;
+    }
 
     public boolean insert() {
         // case1 : nothing stored

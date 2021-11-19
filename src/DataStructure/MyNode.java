@@ -1,11 +1,11 @@
 package DataStructure;
 
-public class Node {
-    Node left;
-    Node right;
+public class MyNode {
+    MyNode left;
+    MyNode right;
     int value;
 
-    public Node(int data) {
+    public MyNode(int data) {
         this.value = data;
         this.left = null;
         this.right = null;
