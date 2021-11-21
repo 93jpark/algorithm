@@ -1,9 +1,9 @@
 package DataStructure;
 
 public class MyNode {
-    MyNode left;
-    MyNode right;
-    int value;
+    public MyNode left;
+    public MyNode right;
+    public Integer value;
 
     public MyNode(int data) {
         this.value = data;
