@@ -5,16 +5,12 @@ import DataStructure.*;
 
 public class test {
     public static void main(String[] args) {
-        MyClosedHash myHash = new MyClosedHash(20);
-        myHash.set("DaveLee", "01022223333");
-        myHash.set("fun-coding", "01033334444");
-        myHash.set("David", "01044445555");
-        myHash.set("Dave", "01055556666");
+        MyBinarySearchTree bst = new MyBinarySearchTree();
+        bst.insert(10);
+        bst.insert(9);
+        bst.insert(8);
+        bst.insert(11);
 
-        System.out.println(myHash.get("Dave"));
-        System.out.println(myHash.get("David"));
-        System.out.println(myHash.get("DaveLee"));
-
-
+        System.out.println(bst.head.value);
     }
 }
