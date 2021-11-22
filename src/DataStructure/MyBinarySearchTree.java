@@ -65,7 +65,84 @@ public class MyBinarySearchTree {
                 }
             }
         }
+    }
+
+    public boolean remove(Integer data) {
+        MyNode parentNode = this.head;
+        MyNode cursorNode = this.head;
 
 
+        // find out target node and its parent node
+        while(true) {
+            if(cursorNode == null) {
+                System.out.println("CHECK");
+                System.out.println(data+" not exists");
+                return false;
+            }
+
+            if(cursorNode.value == data) {
+                break;
+            } else {
+                parentNode = cursorNode;
+                if(data > cursorNode.value) {
+                    cursorNode = cursorNode.right;
+                } else {
+                    cursorNode = cursorNode.left;
+                }
+            }
+        }
+
+
+        // case a : leaf node delete
+        if(cursorNode.left == null & cursorNode.right == null) {
+            System.out.println("case a : leaf node delete");
+            if(parentNode.value > data) {
+                parentNode.left = null;
+            } else {
+                parentNode.right = null;
+            }
+        }
+
+        // case b : only one child node
+        if(cursorNode.left == null || cursorNode.right == null) {
+            System.out.println("case b : only one child node");
+            MyNode childNode;
+
+            // find out which target node's child will be removed
+            if(cursorNode.left == null) {
+                System.out.println("child node is located on right side");
+                childNode = cursorNode.right;
+            } else {
+                System.out.println("child node is located on left side");
+                childNode = cursorNode.left;
+            }
+
+            // find out which target node will be removed from parent node
+            if(parentNode.value > data) {
+                System.out.println("parent's left child is replaced");
+                parentNode.left = childNode;
+                return true;
+            } else {
+                System.out.println("parent's right child is replaced");
+                parentNode.right = childNode;
+                return true;
+            }
+        }
+
+        // case c : has max child node
+        if(cursorNode.left != null && cursorNode.right != null) {
+            System.out.println("case c : has both child nodes");
+            // parent's left is cursor node
+            if(parentNode.left == cursorNode) {
+                parentNode.left = cursorNode.right;
+                return true;
+            } else {
+                // parent's right is cursor node
+                parentNode.right = cursorNode.right;
+                return true;
+            }
+        }
+
+        return true;
     }
 }
