@@ -68,8 +68,8 @@ public class MyBinarySearchTree {
     }
 
     public boolean remove(Integer data) {
-        MyNode parentNode = this.head;
-        MyNode cursorNode = this.head;
+        MyNode parentNode = this.head; // parent node of cursor
+        MyNode cursorNode = this.head; // node which has target data
 
 
         // find out target node and its parent node
@@ -98,8 +98,10 @@ public class MyBinarySearchTree {
             System.out.println("case a : leaf node delete");
             if(parentNode.value > data) {
                 parentNode.left = null;
+                return true;
             } else {
                 parentNode.right = null;
+                return true;
             }
         }
 
@@ -116,7 +118,6 @@ public class MyBinarySearchTree {
                 System.out.println("child node is located on left side");
                 childNode = cursorNode.left;
             }
-
             // find out which target node will be removed from parent node
             if(parentNode.value > data) {
                 System.out.println("parent's left child is replaced");
@@ -129,20 +130,55 @@ public class MyBinarySearchTree {
             }
         }
 
-        // case c : has max child node
+
+
+        // case c : target node has both child nodes
         if(cursorNode.left != null && cursorNode.right != null) {
-            System.out.println("case c : has both child nodes");
+            System.out.println("case c : has both children nodes");
             // parent's left is cursor node
             if(parentNode.left == cursorNode) {
-                parentNode.left = cursorNode.right;
+                // parentNode.left =
+                MyNode smallestNode = cursorNode.right;
+                MyNode smallestParentNode = smallestNode;
+                while(smallestNode.left!=null) {
+                    smallestParentNode = smallestNode;
+                    smallestNode = smallestNode.left;
+                }
+                if(smallestNode.right!=null) {
+                    smallestParentNode = smallestNode;
+                    smallestNode = smallestNode.right;
+                }
+                parentNode.left = smallestNode;
+                smallestNode.right = cursorNode.right;
+                if(smallestParentNode.left!=null) {
+                    smallestParentNode.left = null;
+                } else {
+                    smallestParentNode.right = null;
+                }
                 return true;
             } else {
                 // parent's right is cursor node
-                parentNode.right = cursorNode.right;
+                MyNode smallestNode = cursorNode.right;
+                MyNode smallestParentNode = smallestNode;
+                while(smallestNode.left!=null) {
+                    smallestParentNode = smallestNode;
+                    smallestNode = smallestNode.left;
+                }
+                parentNode.right = smallestNode;
+                if(smallestNode != smallestParentNode) {
+                    if(smallestNode.right!=null) {
+                        smallestParentNode.left = smallestNode.right;
+                    }
+                    smallestNode.right = cursorNode.right;
+                }
+
+                smallestNode.left = cursorNode.left;
                 return true;
             }
         }
 
         return true;
     }
+
+
 }
