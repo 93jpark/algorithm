@@ -64,19 +64,38 @@ public class MyMaxHeap {
             return true;
         }
 
-        // subtree에서 해당 Posisition을 기준으로 좌/우에 자식이 더 크다면,
-        if(this.heap.get(pos) < this.heap.get(this.getLeftPos(pos)) ||
-                this.heap.get(pos) < this.heap.get(this.getRightPos(pos)) ) {
-            // 왼쪽 자식이 더 크다면
-            if(this.heap.get(pos) < this.heap.get(this.getLeftPos(pos)) ) {
-                // 왼쪽 자식과 부모를 스왑한 후, 왼쪽 자식을 기준으로 다시 heapify
-                swap(pos,this.getLeftPos(pos));
-                heapify(this.getLeftPos(pos));
-            } else if (this.heap.get(pos) < this.heap.get(this.getRightPos(pos)) ) {
-                swap(pos, this.getRightPos(pos));
-                heapify(this.getRightPos(pos));
+        //System.out.println("pos is " + pos+ " left :" + this.getLeftPos(pos)+" right: "+this.getRightPos(pos));
+
+        // 왼쪽 자식 1개만 남아있는 경우,
+        // 현재 노드와 왼쪽 자식노드만 비교해서 스왑이 필요한 경우엔 스왑 진행 후 종료
+        if(this.getRightPos(pos) >= this.size) {
+            if(this.heap.get(this.getLeftPos(pos)) > this.heap.get(pos)) {
+                swap(pos, this.getLeftPos(pos));
+            }
+            return true;
+        } else {
+            // subtree에서 해당 Posisition을 기준으로 좌/우 자식 중 한쪽 이상이 더 크다면,
+            if(this.heap.get(pos) < this.heap.get(this.getLeftPos(pos)) ||
+                    this.heap.get(pos) < this.heap.get(this.getRightPos(pos)) ) {
+
+                // 왼쪽 자식이 오른쪽보다 크다면
+                if(this.heap.get(this.getLeftPos(pos)) > this.heap.get(this.getRightPos(pos))) {
+                    if(this.heap.get(pos) < this.heap.get(this.getLeftPos(pos)) ) {
+                        // 왼쪽 자식과 부모를 스왑한 후, 왼쪽 자식을 기준으로 다시 heapify
+                        swap(pos,this.getLeftPos(pos));
+                        heapify(this.getLeftPos(pos));
+                    }
+                } else {
+                    // 왼쪽 자식이 더 크다면
+                    if (this.heap.get(pos) < this.heap.get(this.getRightPos(pos)) ) {
+                        swap(pos, this.getRightPos(pos));
+                        heapify(this.getRightPos(pos));
+                    }
+                }
             }
         }
+
+
 
         return true;
     }
@@ -118,7 +137,7 @@ public class MyMaxHeap {
             current node: i        - 0, 3
             parent: (i-1)/2        - 1, 1
             left child: (i*2)+1    - 3, 7
-            right child: (i*2)+1   - 4, 8
+            right child: (i*2)+2   - 4, 8
          */
     public Integer getParentPos(int pos) {
         return (pos-1)/2;
@@ -129,7 +148,7 @@ public class MyMaxHeap {
     }
 
     public Integer getRightPos(int pos) {
-        return (pos*2)+1;
+        return (pos*2)+2;
     }
 
     public String toString() {
