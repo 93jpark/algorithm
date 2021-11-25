@@ -2,21 +2,21 @@ package DataStructure;
 
 public class MyBinarySearchTree {
 
-    public MyNode head;
+    public MyNode root;
     public Integer size;
 
     public MyBinarySearchTree() {
-        this.head = null;
+        this.root = null;
         this.size = 0;
     }
 
     public boolean insert(Integer data) {
         MyNode newNode = new MyNode(data);
-        MyNode target = this.head;
+        MyNode target = this.root;
         // case 1 : nothing stored in tree
-        if (head == null) {
-            System.out.println("new data " + data + " is stored on head");
-            this.head = newNode;
+        if (root == null) {
+            System.out.println("new data " + data + " is stored on root");
+            this.root = newNode;
             size++;
         } else {
             // case 2 : at least one node exists in tree
@@ -47,7 +47,7 @@ public class MyBinarySearchTree {
     }
 
     public MyNode search(Integer data) {
-        MyNode cursor = this.head;
+        MyNode cursor = this.root;
 
         while(true) {
             if(cursor == null) {
@@ -68,8 +68,8 @@ public class MyBinarySearchTree {
     }
 
     public boolean remove(Integer data) {
-        MyNode parentNode = this.head; // parent node of cursor
-        MyNode cursorNode = this.head; // node which has target data
+        MyNode parentNode = this.root; // parent node of cursor
+        MyNode cursorNode = this.root; // node which has target data
 
 
         // find out target node and its parent node
@@ -179,6 +179,46 @@ public class MyBinarySearchTree {
 
         return true;
     }
+
+
+    public void deleteNode(Integer value) {
+        this.root = deleteRec(this.root, value);
+    }
+
+    public MyNode deleteRec(MyNode root, Integer value) {
+        // if the tree is empty
+        if(root == null) {
+            return root;
+        }
+
+        if (value < root.value) {
+            root.left =  deleteRec(root.left, value);
+        } else if ( value > root.value ) {
+            root.right = deleteRec(root.right, value);
+        } else {
+            // if value is same as root's key, then this is the node to be deleted
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+
+            root.value = minValue(root.right);
+
+            root.right = deleteRec(root.right, root.value);
+        }
+        return root;
+    }
+
+    int minValue(MyNode root) {
+        int minv = root.value;
+        while (root.left != null) {
+            minv = root.left.value;
+            root = root.left;
+        }
+        return minv;
+    }
+
 
 
 }
