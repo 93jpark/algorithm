@@ -29,6 +29,17 @@ public class FastReader {
         return st.nextToken();
     }
 
+    // get string with exception handling
+    String nextLine() {
+        String str = "";
+        try {
+            str = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
     int nextInt() {
         return Integer.parseInt(next());
     }
@@ -41,14 +52,5 @@ public class FastReader {
         return Double.parseDouble(next());
     }
 
-    // get string with exception handling
-    String nextLine() {
-        String str = "";
-        try {
-            str = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
+
 }
