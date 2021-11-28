@@ -29,7 +29,7 @@ public class FastReader {
         return st.nextToken();
     }
 
-    int nextIne() {
+    int nextInt() {
         return Integer.parseInt(next());
     }
 
