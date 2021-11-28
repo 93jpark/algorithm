@@ -3,8 +3,14 @@ import java.util.*;
 import java.io.*;
 
 public class Ex_11654 {
-    public static void main(String[] args) {
 
+    static StringBuilder sb = new StringBuilder();
+
+    static String str;
+
+    static void input() {
+        FastReader scan = new FastReader();
+        str = scan.nextLine();
     }
 
     static class FastReader {
@@ -51,5 +57,10 @@ public class Ex_11654 {
             }
             return str;
         }
+    }
+
+    public static void main(String[] args) {
+        input();
+        System.out.println((int)str.charAt(0));
     }
 }
