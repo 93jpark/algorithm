@@ -5,12 +5,25 @@ import java.io.*;
 
 public class Ex_10870 {
 
-    static void input() {
+    static int n;
 
+    static void input() {
+        FastReader scan = new FastReader();
+        n = scan.nextInt();
     }
 
     public static void main(String[] args) {
         input();
+        System.out.println(recursive(0, 1, n));
+
+    }
+
+    static int recursive(int first, int second, int rec_times) {
+        if(rec_times == 0) {
+            return first;
+        } else {
+            return recursive( second, first+second, --rec_times);
+        }
     }
 
     static class FastReader {
