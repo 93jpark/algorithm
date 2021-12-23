@@ -13,6 +13,12 @@ public class Ex_11654 {
         str = scan.nextLine();
     }
 
+
+    public static void main(String[] args) {
+        input();
+        System.out.println((int)str.charAt(0));
+    }
+
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -59,8 +65,4 @@ public class Ex_11654 {
         }
     }
 
-    public static void main(String[] args) {
-        input();
-        System.out.println((int)str.charAt(0));
-    }
 }
