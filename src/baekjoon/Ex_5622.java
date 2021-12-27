@@ -7,7 +7,6 @@ public class Ex_5622 {
 
     static String s;
 
-
     static void input() {
         FastReader scan = new FastReader();
         s = scan.next();

@@ -58,8 +58,6 @@ public class MyDoubleLinkedList<T> {
                 cursor.next.prev = newNode;
                 cursor.next = newNode;
             }
-
-
         }
     }
 
@@ -84,10 +82,7 @@ public class MyDoubleLinkedList<T> {
         }
         cursor.prev.next = cursor.next;
         cursor.next.prev = cursor.prev;
-
         return true;
-
-
     }
 
     // 리스트 전체 출력
