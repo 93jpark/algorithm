@@ -17,7 +17,6 @@ public class Ex_10828 {
         stack = new Stack<>();
         list = new ArrayList<>();
 
-
         for(int i=0; i<n; i++){
             commands[i] = scan.nextLine();
         }

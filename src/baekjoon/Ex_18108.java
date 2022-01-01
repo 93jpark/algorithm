@@ -1,27 +1,30 @@
 package baekjoon;
 
-import java.io.*;
 import java.util.*;
-import DataStructure.*;
-import org.w3c.dom.ls.LSOutput;
+import java.io.*;
 
-public class test {
+public class Ex_18108 {
 
-    static int a;
+    static int y;
+    static int diff;
+
+    static void input() {
+        FastReader scan = new FastReader();
+        diff = 2541 - 1998;
+        y = scan.nextInt();
+    }
 
     public static void main(String[] args) {
         input();
+        calc();
     }
 
-    static void input() {
-        // 인풋을 받는 함수
-        FastReader scan = new FastReader();
-        a = scan.nextInt();
-        double d = scan.nextDouble();
-        String s = scan.nextLine();
+    static void calc() {
+        System.out.println(y-diff);
     }
 
-    static class FastReader{
+
+    static class FastReader {
         BufferedReader br;
         StringTokenizer st;
 
@@ -56,7 +59,6 @@ public class test {
 
         int nextInt() { return Integer.parseInt(next()); }
         long nextLong() { return Long.parseLong(next()); }
-        Double nextDouble() { return Double.parseDouble(next()); }
-
+        double nextDouble() { return Double.parseDouble(next()); }
     }
 }
