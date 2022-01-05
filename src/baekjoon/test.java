@@ -7,7 +7,7 @@ import org.w3c.dom.ls.LSOutput;
 
 public class test {
 
-    static int a;
+    static double a;
 
     public static void main(String[] args) {
         input();
@@ -16,9 +16,13 @@ public class test {
     static void input() {
         // 인풋을 받는 함수
         FastReader scan = new FastReader();
-        a = scan.nextInt();
-        double d = scan.nextDouble();
-        String s = scan.nextLine();
+        a = scan.nextDouble();
+        double b = 1;
+        double c = 2;
+        double d = 3;
+        System.out.println(a);
+        System.out.println(d-c);
+        System.out.println(d-c);
     }
 
     static class FastReader{
