@@ -10,35 +10,43 @@ public class MyBinarySearchTree {
         this.size = 0;
     }
 
+    // Function to perform inorder traversal on the BST
+    public void inorder(MyNode root)
+    {
+        if (root == null) {
+            return;
+        }
+
+        inorder(root.left);
+        System.out.print(root.value + " ");
+        inorder(root.right);
+    }
+
     public boolean insert(Integer data) {
         MyNode newNode = new MyNode(data);
-        MyNode target = this.root;
+        MyNode cursor = this.root;
         // case 1 : nothing stored in tree
         if (root == null) {
-            System.out.println("new data " + data + " is stored on root");
             this.root = newNode;
             size++;
         } else {
             // case 2 : at least one node exists in tree
             while (true) {
-                System.out.println("now checking .. " + target.value);
                 // case 2-1 : node value is greater than new data
-                if (target.value > data) {
-                    if (target.left == null) {
-                        System.out.println("new data " + data + " is stored");
-                        target.left = newNode;
+                if (cursor.value > data) {
+                    if (cursor.left == null) {
+                        cursor.left = newNode;
                         return true;
                     } else {
-                        target = target.left;
+                        cursor = cursor.left;
                     }
                     // case 2-2 : node value is less or equal with new data
                 } else {
-                    if (target.right == null) {
-                        System.out.println("new data " + data + " is stored");
-                        target.right = newNode;
+                    if (cursor.right == null) {
+                        cursor.right = newNode;
                         return true;
                     } else {
-                        target = target.right;
+                        cursor = cursor.right;
                     }
                 }
             }
@@ -67,156 +75,74 @@ public class MyBinarySearchTree {
         }
     }
 
-    public boolean remove(Integer data) {
-        MyNode parentNode = this.root; // parent node of cursor
-        MyNode cursorNode = this.root; // node which has target data
 
+    public MyNode remove(MyNode root, int data) {
+        MyNode parent = null;
+        MyNode cursor = root;
 
-        // find out target node and its parent node
-        while(true) {
-            if(cursorNode == null) {
-                System.out.println("CHECK");
-                System.out.println(data+" not exists");
-                return false;
-            }
-
-            if(cursorNode.value == data) {
-                break;
+        // 커서가 데이터를 찾거나 종단노드에 닿을때까지 이동
+        while (cursor != null && cursor.value != data) {
+            parent = cursor;
+            if(data < cursor.value) {
+                cursor = cursor.left;
             } else {
-                parentNode = cursorNode;
-                if(data > cursorNode.value) {
-                    cursorNode = cursorNode.right;
+                cursor = cursor.right;
+            }
+        }
+
+        // 데이터가 존재하지 않는 경우
+        if(cursor == null) {
+            System.out.println(data+" not exists");
+            return null;
+        }
+
+        // 삭제될 노드가 자식노드가 없는 경우
+        if(cursor.left == null && cursor.right == null) {
+            if(cursor != root) {
+                if(parent.left == cursor) {
+                    parent.left = null;
                 } else {
-                    cursorNode = cursorNode.left;
+                    parent.right = null;
                 }
+            } else {
+                root = null;
             }
         }
 
+        // 삭제될 노드가 두개의 자식 노드를 지닌 경우
+        else if (cursor.left != null && cursor.right != null) {
+            // 삭제될 노드와 그 부모노드 사이의 최소 값을 지닌 노드를 찾는다.
+            MyNode temp = findMinNode(cursor.right);
+            int tempValue = temp.value;
 
-        // case a : leaf node delete
-        if(cursorNode.left == null & cursorNode.right == null) {
-            System.out.println("case a : leaf node delete");
-            if(parentNode.value > data) {
-                parentNode.left = null;
-                return true;
-            } else {
-                parentNode.right = null;
-                return true;
-            }
+            // 최소값 노드를 삭제 후, 삭제될 노드에 최소값을 삽입한다.
+            remove(root, temp.value);
+            cursor.value = tempValue;
         }
 
-        // case b : only one child node
-        if(cursorNode.left == null || cursorNode.right == null) {
-            System.out.println("case b : only one child node");
-            MyNode childNode;
+        // 삭제될 노드가 한개의 자식만 지닌 경우
+        else {
+            MyNode child = (cursor.left != null) ? cursor.left : cursor.right;
 
-            // find out which target node's child will be removed
-            if(cursorNode.left == null) {
-                System.out.println("child node is located on right side");
-                childNode = cursorNode.right;
-            } else {
-                System.out.println("child node is located on left side");
-                childNode = cursorNode.left;
-            }
-            // find out which target node will be removed from parent node
-            if(parentNode.value > data) {
-                System.out.println("parent's left child is replaced");
-                parentNode.left = childNode;
-                return true;
-            } else {
-                System.out.println("parent's right child is replaced");
-                parentNode.right = childNode;
-                return true;
-            }
-        }
-
-
-
-        // case c : target node has both child nodes
-        if(cursorNode.left != null && cursorNode.right != null) {
-            System.out.println("case c : has both children nodes");
-            // parent's left is cursor node
-            if(parentNode.left == cursorNode) {
-                // parentNode.left =
-                MyNode smallestNode = cursorNode.right;
-                MyNode smallestParentNode = smallestNode;
-                while(smallestNode.left!=null) {
-                    smallestParentNode = smallestNode;
-                    smallestNode = smallestNode.left;
-                }
-                if(smallestNode.right!=null) {
-                    smallestParentNode = smallestNode;
-                    smallestNode = smallestNode.right;
-                }
-                parentNode.left = smallestNode;
-                smallestNode.right = cursorNode.right;
-                if(smallestParentNode.left!=null) {
-                    smallestParentNode.left = null;
+            if(cursor != root) {
+                if(cursor == parent.left) {
+                    parent.left = child;
                 } else {
-                    smallestParentNode.right = null;
+                    parent.right = child;
                 }
-                return true;
             } else {
-                // parent's right is cursor node
-                MyNode smallestNode = cursorNode.right;
-                MyNode smallestParentNode = smallestNode;
-                while(smallestNode.left!=null) {
-                    smallestParentNode = smallestNode;
-                    smallestNode = smallestNode.left;
-                }
-                parentNode.right = smallestNode;
-                if(smallestNode != smallestParentNode) {
-                    if(smallestNode.right!=null) {
-                        smallestParentNode.left = smallestNode.right;
-                    }
-                    smallestNode.right = cursorNode.right;
-                }
-
-                smallestNode.left = cursorNode.left;
-                return true;
+                root = child;
             }
         }
 
-        return true;
-    }
-
-
-    public void deleteNode(Integer value) {
-        this.root = deleteRec(this.root, value);
-    }
-
-    public MyNode deleteRec(MyNode root, Integer value) {
-        // if the tree is empty
-        if(root == null) {
-            return root;
-        }
-
-        if (value < root.value) {
-            root.left =  deleteRec(root.left, value);
-        } else if ( value > root.value ) {
-            root.right = deleteRec(root.right, value);
-        } else {
-            // if value is same as root's key, then this is the node to be deleted
-            if (root.left == null) {
-                return root.right;
-            } else if (root.right == null) {
-                return root.left;
-            }
-
-            root.value = minValue(root.right);
-
-            root.right = deleteRec(root.right, root.value);
-        }
         return root;
     }
 
-    int minValue(MyNode root) {
-        int minv = root.value;
-        while (root.left != null) {
-            minv = root.left.value;
-            root = root.left;
+    MyNode findMinNode(MyNode cursor) {
+        while (cursor != null) {
+            cursor = cursor.left;
         }
-        return minv;
+        return cursor;
     }
 
 
