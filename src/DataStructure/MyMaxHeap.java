@@ -32,11 +32,8 @@ public class MyMaxHeap {
             if(this.heap.get(current) > this.heap.get(this.getParentPos(current))) {
                 swap(current, this.getParentPos(current));
             }
-
             current = this.getParentPos(current);
         }
-
-
         return true;
     }
 
@@ -63,8 +60,6 @@ public class MyMaxHeap {
         if (this.isLeaf(pos)) {
             return true;
         }
-
-        //System.out.println("pos is " + pos+ " left :" + this.getLeftPos(pos)+" right: "+this.getRightPos(pos));
 
         // 왼쪽 자식 1개만 남아있는 경우,
         // 현재 노드와 왼쪽 자식노드만 비교해서 스왑이 필요한 경우엔 스왑 진행 후 종료
@@ -94,8 +89,6 @@ public class MyMaxHeap {
                 }
             }
         }
-
-
 
         return true;
     }
