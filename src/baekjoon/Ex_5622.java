@@ -48,9 +48,7 @@ public class Ex_5622 {
                     result+=10;
                     break;
             }
-
-
-
+            
             /*
             if(num>=0 && num<3) {
                 //System.out.println("ABC");
