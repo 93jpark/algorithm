@@ -24,11 +24,9 @@ public class Ex_2775 {
 
     public static void main(String[] args) {
         input();
-
         for(int i = 0; i < t; i++) {
             calc(k[i],n[i]);
         }
-
     }
 
     static void calc(int k, int n){
