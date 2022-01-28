@@ -10,7 +10,6 @@ public class Ex_2439 {
     static void input() {
         FastReader scan = new FastReader();
         n = scan.nextInt();
-
     }
 
     public static void main(String[] args) {
