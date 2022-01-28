@@ -14,9 +14,55 @@ public class Ex_2941 {
     }
 
     public static void main(String[] args) {
-
+        input();
+        calc(s);
     }
 
+    static void calc(String s) {
+        // c= c- dz= d- li nj s= z=
+        // ddz=z=
+
+        int count = 0;
+        boolean flag = true;
+
+        while(flag){
+            flag = false;
+            if(s.contains("c=")) {
+                s = s.split("c=", 2)[0] + "." + s.split("c=", 2)[1];
+                flag = true;
+            }
+            else if(s.contains("c-")) {
+                s = s.split("c-", 2)[0] + "." + s.split("c-", 2)[1];
+                flag = true;
+            }
+            else if(s.contains("dz=")) {
+                s = s.split("dz=", 2)[0] + "." + s.split("dz=", 2)[1];
+                flag = true;
+            }
+            else if(s.contains("d-")) {
+                s = s.split("d-", 2)[0] + "." + s.split("d-", 2)[1];
+                flag = true;
+            }
+            else if(s.contains("lj")) {
+                s = s.split("lj", 2)[0] + "." + s.split("lj", 2)[1];
+                flag = true;
+            }
+            else if(s.contains("nj")) {
+                s = s.split("nj", 2)[0] + "." + s.split("nj", 2)[1];
+                flag = true;
+            }
+            else if(s.contains("s=")) {
+                s = s.split("s=", 2)[0] + "." + s.split("s=", 2)[1];
+                flag = true;
+            }
+            else if(s.contains("z=")) {
+                s = s.split("z=", 2)[0] + "." + s.split("z=", 2)[1];
+                flag = true;
+            }
+        }
+
+        System.out.println(s.length());
+    }
 
 
     static class FastReader {
