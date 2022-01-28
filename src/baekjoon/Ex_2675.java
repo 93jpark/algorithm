@@ -28,6 +28,7 @@ public class Ex_2675 {
             return st.nextToken();
         }
 
+        
         int nextInt() { return Integer.parseInt(next()); }
         double nextDouble() { return Double.parseDouble(next()); }
         long nextLong() { return Long.parseLong(next()); }
