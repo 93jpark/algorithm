@@ -1,94 +1,40 @@
 package DataStructure;
 
 
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.IntStream;
 
 public class Test {
+    public static void main(String[] args) throws IOException {
+        int[] nums = {1,2,3};
+        int max = 0;
+        for(int n : nums) {
+            if(n >= max) {
+                max = n;
+            }
+        }
+        int[] myIntArray = IntStream.rangeClosed(0, max).toArray();
+        for(int n : myIntArray) {
+            System.out.println(n);
+        }
 
-    public static void main(String[] args) {
-        Macbook air = new Macbook();
-        IPhone se = new IPhone("iphone se");
+        String s = "hello";
 
-        List<Computer> coms = new ArrayList<>();
-        coms.add(air);
-        coms.add(se);
-
-        Device.powerOn();
-
-        Computer.powerOn();
-
-        int[] nums = new int[3];
-        System.out.println(nums[5]);
-    }
-
-
-
-
-}
-
-interface Device {
-    static void powerOn() {
-        System.out.println("pressed power button");
-    }
-}
-
-interface Computer extends Device {
-    public void playGame(String gameName);
-    public void searchGoogle(String keyword);
-
-
-    static void powerOn() {
-        System.out.println("yo");
-    }
-}
-
-interface Phone {
-    public void sendMessage(String content);
-    public void makePhoneCall(String number);
-}
-
-abstract class SmartPhone implements Computer, Phone {
-
-    public String model;
-
-    public SmartPhone(String model) {
-        this.model = model;
-    }
-
-    @Override
-    public void playGame(String gameName) {}
-
-    @Override
-    public void searchGoogle(String keyword) {}
-
-    @Override
-    public void sendMessage(String content) {}
-
-    @Override
-    public void makePhoneCall(String number) {}
-}
-
-class IPhone extends SmartPhone {
-
-    public IPhone(String model) {
-        super(model);
-    }
-
-    public void iCloud() { }
-}
-
-class Macbook implements Computer, Device {
-
-    @Override
-    public void playGame(String gameName) {
+        System.out.println(s.length());
 
     }
 
-    @Override
-    public void searchGoogle(String keyword) {
-
+    public static double sum(List<Number> list){
+        double sum = 0;
+        for(Number n : list){
+            sum += n.doubleValue();
+        }
+        return sum;
     }
+    static <T> T getSomething(T t) {
+        return t;
+    }
+
 }
