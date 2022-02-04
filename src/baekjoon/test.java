@@ -11,7 +11,8 @@ public class test {
     static double a;
 
     public static void main(String[] args) {
-        input();
+        int result =  5 % 3;
+        System.out.println(result); // 2
     }
 
     static void input() {
