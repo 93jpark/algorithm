@@ -5,53 +5,36 @@ import java.io.*;
 
 public class Ex_1193 {
 
-    static int x;
-
-    static void input() {
-        FastReader scan = new FastReader();
-        x = scan.nextInt();
-
-    }
-
     public static void main(String[] args) {
-        input();
-    }
 
-    static class FastReader {
-        BufferedReader br;
-        StringTokenizer st;
+        Scanner in = new Scanner(System.in);
+        int X = in.nextInt();
 
-        public FastReader() {
-            br = new BufferedReader(new InputStreamReader(System.in));
-        }
+        int cross_count = 1, prev_count_sum = 0;
 
-        public FastReader(String s) throws IOException {
-            br = new BufferedReader(new FileReader(new File(s)));
-        }
+        while (true) {
 
-        String next() {
-            while( st == null || !st.hasMoreElements() ) {
-                try {
-                    st = new StringTokenizer(br.readLine());
-                } catch (IOException e) {
-                    e.printStackTrace();
+            // 직전 대각선 누적합 + 해당 대각선 개수 이용한 범위 판별
+            if (X <= prev_count_sum + cross_count) {
+
+                if (cross_count % 2 == 1) {	// 대각선의 개수가 홀수라면
+                    // 분모가 큰 수부터 시작
+                    // 분모는 대각선 개수 - (X 번째 - 직전 대각선까지의 누적합 - 1)
+                    // 분자는 X 번째 - 직전 대각선까지의 누적합
+                    System.out.print((cross_count - (X - prev_count_sum - 1)) + "/" + (X - prev_count_sum));
+                    break;
                 }
-            }
-            return st.nextToken();
-        }
 
-        String nextLine() {
-            String str = "";
-            try {
-                str = br.readLine();
-            } catch ( IOException e) {
-                e.printStackTrace();
-            }
-            return str;
-        }
+                else {	// 대각선의 개수가 짝수라면
+                    // 홀수일 때의 출력을 반대로
+                    System.out.print((X - prev_count_sum) + "/" + (cross_count - (X - prev_count_sum - 1)));
+                    break;
+                }
 
-        int nextInt() { return Integer.parseInt(next()); }
-        long nextLong() { return Long.parseLong(next()); }
-        double nextDouble() { return Double.parseDouble(next()); }
+            } else {
+                prev_count_sum += cross_count;
+                cross_count++;
+            }
+        }
     }
 }
