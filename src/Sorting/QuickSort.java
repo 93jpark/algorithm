@@ -1,6 +1,7 @@
 package Sorting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class QuickSort {
@@ -14,18 +15,32 @@ public class QuickSort {
         list.add(8);
         list.add(9);
 
+        list  = sort(list);
         System.out.println(list);
+    }
 
-        for(int i=0; i < list.size()-1; i++) {
-            for(int j = i+1; j>0; j--) {
-                if(list.get(j) < list.get(j-1)) {
-                    Collections.swap(list, j, j-1);
-                } else {
-                    break;
-                }
+    static ArrayList<Integer> sort(ArrayList<Integer> list) {
+        if(list.size() <= 1) {
+            return list;
+        }
+        int pivot = list.get(0);
+
+        ArrayList<Integer> left = new ArrayList<Integer>();
+        ArrayList<Integer> right = new ArrayList<Integer>();
+
+        for(int index = 1; index < list.size(); index++) {
+            if(list.get(index) > pivot) {
+                right.add(list.get(index));
+            } else {
+                left.add(list.get(index));
             }
         }
 
-        System.out.println(list);
+        ArrayList<Integer> mergedArr = new ArrayList<Integer>();
+        mergedArr.addAll(sort(left));
+        mergedArr.addAll(Arrays.asList(pivot));
+        mergedArr.addAll(sort(right));
+
+        return mergedArr;
     }
 }
