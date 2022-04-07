@@ -6,8 +6,8 @@ public class Ex_146 {
     static class LRUCache {
 
         final private int maxCapacity;
-        private final HashMap<Integer, Node> cache;
-        private final DoubleLinkedList frequency;
+        private final HashMap<Integer, Node> cache; // store key & key-value Node
+        private final DoubleLinkedList frequency; // store key history
 
         public static class DoubleLinkedList {
 
@@ -15,7 +15,7 @@ public class Ex_146 {
             public Node head;
             public Node tail;
 
-            // init DoubleLinked List with empty Node head and tail
+            // init DoubleLinked List with empty head and tail Node
             public DoubleLinkedList() {
                 this.head = new Node(null, null);
                 this.tail = new Node(null, null);
@@ -28,7 +28,7 @@ public class Ex_146 {
             }
 
             /**
-             * add new node on head position
+             * add new node on head's next position
              * @param newNode
              */
             public void insert(Node newNode) {
@@ -39,16 +39,17 @@ public class Ex_146 {
                 secNode.prev = newNode;
                 newNode.prev = this.head;
                 size++;
-
-                //System.out.println("{"+newNode.key+":"+newNode.value+"} is added on head");
             }
 
+            /**
+             * remove last node in frequency list
+             * @return
+             */
             public Node cutoff() {
                 Node target = this.tail.prev;
                 Node end = target.prev;
                 end.next = this.tail;
                 this.tail.prev = end;
-                //System.out.println(target.value + " is deleted");
                 size--;
                 return target;
             }
@@ -69,7 +70,6 @@ public class Ex_146 {
 
         }
 
-        /****************************************************************************/
         public static class Node {
             private Integer key;
             private Integer value;
@@ -86,15 +86,13 @@ public class Ex_146 {
             }
         }
 
-        /****************************************************************************/
-
         /**
-         * init LRU cache with positive size capacity
+         * initialize LRU cache with positive size capacity
          * @param capacity
          */
         public LRUCache(int capacity) {
             if(capacity < 1) {
-                throw new IllegalArgumentException("Invalid Capacity");
+                throw new IllegalArgumentException("Invalid input");
             } else {
                 this.cache = new HashMap<>();
                 this.frequency = new DoubleLinkedList();
@@ -117,7 +115,7 @@ public class Ex_146 {
                 // when cache is not full
                 if(cache.containsKey(key)) {
                     cache.get(key).value = value;
-                    swap(cache.get(key));
+                    update(cache.get(key));
                     frequency.head.next.value = value;
                 } else {
                     Node newNode = new Node(key, value);
@@ -135,34 +133,24 @@ public class Ex_146 {
                 cache.put(key, newNode);
                 frequency.insert(newNode);
 
-
             }
         }
 
         /**
-         * swap() change the most recent node in frequency with most front node
+         * update the most recent used node in frequency list with most front node
          * @param target
          */
-        public void swap(Node target) {
+        public void update(Node target) {
             if(this.frequency.size > 1) {
+
                 Node front = this.frequency.head.next;
+
                 if(target.key != front.key) {
 
                     target.prev.next = target.next;
                     target.next.prev = target.prev;
 
                     this.frequency.insert(target);
-
-                    /*
-                    this.frequency.iterate();
-
-
-                    System.out.println();
-                    System.out.println("{"+target.key+":"+target.value+"}"
-                            + "has changed with" +
-                            "{"+front.key+":"+front.value+"}");
-
-                     */
                 }
             }
         }
@@ -174,23 +162,15 @@ public class Ex_146 {
          */
         public int get(int key) {
             if(cache.containsKey(key)) {
-                swap(cache.get(key));
-                System.out.println(cache.get(key).value);
+                update(cache.get(key));
                 return cache.get(key).value;
             } else {
-                System.out.println(-1);
                 return -1;
             }
         }
     }
 
     public static void main(String[] args) {
-
-
-
-
-
-
 
         LRUCache lRUCache = new LRUCache(2);
         lRUCache.put(1, 1); // cache is {1=1}

@@ -6,31 +6,52 @@ import java.util.HashSet;
 public class Ex_567 {
     public static boolean checkInclusion(String s1, String s2) {
         HashMap<Character, Integer> mapS1 = new HashMap<>();
-        HashMap<Character, Integer> mapS2 = new HashMap<>();
 
-        for(char c : s1.toCharArray()) mapS1.put(c, mapS1.getOrDefault(c, 0)+1);
+        char[] c1 = s1.toCharArray();
+        char[] c2 = s2.toCharArray();
 
-        System.out.println(mapS1);
-
-        int begin = 0;
-
-        for(int end=0; end < s2.length(); end++) {
-            char rightChar = s2.charAt(end);
-            mapS2.put(rightChar, mapS2.getOrDefault(rightChar, 0)+1);
-
-            if(end+1 >= s1.length()) {
-                if(mapS1.equals(mapS2)) {
-                    return true;
-                }
-
-                char leftChar = s2.charAt(begin);
-                mapS2.put(leftChar, mapS2.get(leftChar)-1);
-                if(mapS2.get(leftChar) == 0) {
-                    mapS2.remove(leftChar);
-                }
-                begin++;
-            }
+        for(char c : c1) {
+            mapS1.put(c, mapS1.getOrDefault(c, 0)+1);
         }
+
+        int left = 0;
+        //int right = 1;
+
+        while(left < s2.length()) {
+
+            for(int right=left; right<s2.length(); right++) {
+
+                String s = s2.substring(left, right+1);
+                HashMap<Character, Integer> mapS2 = new HashMap<>();
+
+                char[] charArr = s.toCharArray();
+
+                for(char c : charArr) {
+                    mapS2.put(c, mapS2.getOrDefault(c, 0)+1);
+                }
+
+                System.out.println(s);
+                if(mapS2.equals(mapS1)) {
+                    System.out.println(mapS1);
+                    System.out.println(mapS2);
+                    return true;
+                } else {
+                    System.out.println(mapS1);
+                    System.out.println(mapS2);
+                }
+            }
+            left++;
+        }
+
+
         return false;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(checkInclusion("ab","elebaoooo"));
+        System.out.println(checkInclusion("ab","eleboaoooo"));
+        System.out.println();
+        System.out.println(checkInclusion("adc","dcda"));
+
     }
 }
