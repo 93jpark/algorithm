@@ -59,6 +59,8 @@ public class Ex_81301 {
             case "eight" : return 8;
             case "nine" : return 9;
         }
+
+        return -1;
     }
 
     public static void main(String[] args) {
