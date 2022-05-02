@@ -11,7 +11,7 @@ public class Ex_81301 {
     public static int solution(String s) {
         int answer = 0;
 
-        Queue<Integer> queue = new LinkedList<>();
+        Stack<Integer> stack = new Stack<>();
 
         /**
          * ASCII table
@@ -24,17 +24,34 @@ public class Ex_81301 {
         for(int i=0; i<s.length(); i++) {
             char c = s.charAt(i);
             if(isNum(c)) {
-                queue.add(charToNum(c));
+                stack.push(charToNum(c));
+            } else {
+                int cursor = i;
+                while(wordToNum(s.substring(i, cursor+1)) < 0) {
+                    cursor++;
+                }
+                stack.push(wordToNum(s.substring(i, cursor+1)));
+                i = cursor;
             }
+
         }
 
 
+        int len = stack.size();
+
+        int digit = 1;
+
+        for(int i=0; i<len; i++) {
+            int num = stack.pop();
+            answer += num * digit;
+            digit *= 10;
+        }
 
         return answer;
     }
 
     public static boolean isNum(char c) {
-        if((int)c >= 30 && (int)c <= 39) {
+        if((int)c >= 48 && (int)c <= 57) {
             return true;
         } else {
             return false;
@@ -43,22 +60,20 @@ public class Ex_81301 {
 
     public static int charToNum(char c) {
         int ascii = (int)c;
-        return ascii - 30;
+        return ascii - 48;
     }
 
     public static int wordToNum(String s) {
-        switch(s) {
-            case "zero" : return 0;
-            case "one" : return 1;
-            case "two" : return 2;
-            case "three" : return 3;
-            case "four" : return 4;
-            case "five" : return 5;
-            case "six" : return 6;
-            case "seven" : return 7;
-            case "eight" : return 8;
-            case "nine" : return 9;
-        }
+        if(s.equals("zero")) return 0;
+        if(s.equals("one")) return 1;
+        if(s.equals("two")) return 2;
+        if(s.equals("three")) return 3;
+        if(s.equals("four")) return 4;
+        if(s.equals("five")) return 5;
+        if(s.equals("six")) return 6;
+        if(s.equals("seven")) return 7;
+        if(s.equals("eight")) return 8;
+        if(s.equals("nine")) return 9;
 
         return -1;
     }
@@ -68,10 +83,11 @@ public class Ex_81301 {
         String s = "one4seveneight";
 
         s = "23four5six7";
-        System.out.println(solution(s));
+        //(s.substring(0,3) // 23f
+        System.out.println(solution(s)); // 234567
 
         s = "2three45sixseven";
-        System.out.println(solution(s));
+        System.out.println(solution(s)); // 234567
 
         s = "123";
         System.out.println(solution(s));
