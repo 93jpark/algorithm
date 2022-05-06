@@ -63,8 +63,5 @@ public class Ex_12910 {
         }
         System.out.println(); // -1
 
-
-
-
     }
 }
