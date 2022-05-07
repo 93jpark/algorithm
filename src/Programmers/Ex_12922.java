@@ -1,5 +1,8 @@
 package Programmers;
-
+/*
+    레벨1
+    수박수박수박수박수박수
+ */
 public class Ex_12922 {
     public String solution(int n) {
         String answer = "";
