@@ -1,5 +1,8 @@
 package Programmers;
-
+/*
+    레벨 1
+    제일 작은 수 제거하기
+ */
 public class Ex_12935 {
     public static int[] solution(int[] arr) {
         int[] answer = new int[arr.length-1];
