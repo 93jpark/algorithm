@@ -7,6 +7,11 @@ package baekjoon;
 
 import java.util.*;
 
+/*
+    백준 스택
+    제로
+ */
+
 public class Ex_10773 {
 
     public static int T;
