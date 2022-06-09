@@ -31,6 +31,7 @@ public class Ex_5430 {
             int arrSize = Integer.parseInt(br.readLine()); //  size of array
             String nums = br.readLine();
 
+            LinkedList<Integer> intArray = Stream.of(nums.split(",")).mapToInt(Integer::parseInt).collect(LinkedList::new, List::add, List::addAll);
             if(arrSize == 0){
                 sb.append("error\n");
             } else {
