@@ -1,18 +1,18 @@
 package leetcode;
 
 public class Ex_98 {
-    class Solution {
-        public boolean isValidBST(TreeNode root) {
-            return CheckValidity(root,Long.MIN_VALUE,Long.MAX_VALUE);
-        }
 
-        public static boolean CheckValidity(TreeNode root,long leftMax,long rightMin) {
-            if(root==null) return true;
-            if(root.val<=leftMax ||root.val>=rightMin ) return false;
-
-            return CheckValidity(root.left,leftMax,root.val) && CheckValidity(root.right,root.val,rightMin);
-        }
+    public boolean isValidBST(TreeNode root) {
+        return CheckValidity(root,Long.MIN_VALUE,Long.MAX_VALUE);
     }
+
+    public static boolean CheckValidity(TreeNode root,long leftMax,long rightMin) {
+        if(root==null) return true;
+        if(root.val<=leftMax ||root.val>=rightMin ) return false;
+
+        return CheckValidity(root.left,leftMax,root.val) && CheckValidity(root.right,root.val,rightMin);
+    }
+}
 
 /*
 class Solution {
